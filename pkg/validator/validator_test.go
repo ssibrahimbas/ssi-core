@@ -3,6 +3,7 @@ package validator
 import (
 	"github.com/ssibrahimbas/ssi-core/pkg/i18n"
 	"github.com/stretchr/testify/assert"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"testing"
 )
 
@@ -220,6 +221,38 @@ func TestValidator_Module(t *testing.T) {
 				}
 				errors := v.ValidateStruct(test)
 				assert.Equal(t, 1, len(errors))
+			})
+		})
+		t.Run("validateObjectId", func(t *testing.T) {
+			t.Run("should return errors", func(t *testing.T) {
+				type Test struct {
+					Id string `json:"name" validate:"object_id"`
+				}
+				test := Test{
+					Id: "5e9f8f8f8f8f8f8f8f8f8f8",
+				}
+				errors := v.ValidateStruct(test)
+				assert.Equal(t, 1, len(errors))
+			})
+			t.Run("should return errors", func(t *testing.T) {
+				type Test struct {
+					Id string `json:"name" validate:"object_id"`
+				}
+				test := Test{
+					Id: "",
+				}
+				errors := v.ValidateStruct(test)
+				assert.Equal(t, 1, len(errors))
+			})
+			t.Run("should return no errors", func(t *testing.T) {
+				type Test struct {
+					Id string `json:"name" validate:"object_id"`
+				}
+				test := Test{
+					Id: primitive.NewObjectID().Hex(),
+				}
+				errors := v.ValidateStruct(test)
+				assert.Equal(t, 0, len(errors))
 			})
 		})
 	})

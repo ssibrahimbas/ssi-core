@@ -44,6 +44,7 @@ func (v *Validator) ConnectCustom() {
 	_ = v.validate.RegisterValidation("username", validateUserName)
 	_ = v.validate.RegisterValidation("password", validatePassword)
 	_ = v.validate.RegisterValidation("locale", validateLocale)
+	_ = v.validate.RegisterValidation("object_id", validateObjectId)
 }
 
 func (v *Validator) RegisterTagName() {

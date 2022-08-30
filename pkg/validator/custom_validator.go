@@ -2,6 +2,7 @@ package validator
 
 import (
 	"github.com/go-playground/validator"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"regexp"
 )
 
@@ -18,4 +19,8 @@ func validatePassword(fl validator.FieldLevel) bool {
 func validateLocale(fl validator.FieldLevel) bool {
 	matched, _ := regexp.MatchString(localeRegexp, fl.Field().String())
 	return matched
+}
+
+func validateObjectId(fl validator.FieldLevel) bool {
+	return primitive.IsValidObjectID(fl.Field().String())
 }
