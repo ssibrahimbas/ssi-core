@@ -1,0 +1,11 @@
+# validation translations
+validationError = "Doğrulama Hatası!"
+validation_required = "{{.Field}} alanı zorunludur!"
+validation_min = "{{.Field}} alanı en az {{.Param}} karakter uzunluğunda olmalıdır!"
+validation_max = "{{.Field}} alanı en çok {{.Param}} karakter uzunluğunda olmalıdır!"
+validation_username = "{{.Field}} alanı büyük/küçük harf, sayılar ve/veya birer nokta (.) ve/veya alt çizgi (_) içerebilir."
+validation_email = "Lütfen geçerli bir e-posta adresi giriniz."
+validation_locale = "Lütfen geçerli bir yerel kod giriniz."
+validation_password = "Lütfen geçerli bir şifre giriniz."
+validation_phone = "Lütfen girdiğiniz ülke koduna uygun bir telefon numarası giriniz."
+validation_wrongPassword = "Yanlış şifre."

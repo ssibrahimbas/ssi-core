@@ -1,0 +1,11 @@
+# validation translations
+validationError = "Validation Error!"
+validation_required = "{{.Field}} field is required!"
+validation_min = "The {{.Field}} field must be at least {{.Param}} characters long!"
+validation_max = "The {{.Field}} field must be no more than {{.Param}} characters long!"
+validation_username = "The {{.Field}} field can contain upper/lowercase letters, numbers, and/or a period (.) and/or an underscore (_)."
+validation_email = "Please enter a valid e-mail address."
+validation_locale = "Please enter a valid local code."
+validation_password = "Please enter a valid password."
+validation_phone = "Please enter a phone number correponding to the country code you entered."
+validation_wrongPassword = "Wrong password."
