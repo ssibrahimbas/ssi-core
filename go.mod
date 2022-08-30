@@ -10,6 +10,7 @@ require (
 	github.com/go-playground/universal-translator v0.18.0 // indirect
 	github.com/go-playground/validator v9.31.0+incompatible // indirect
 	github.com/gofiber/fiber/v2 v2.36.0 // indirect
+	github.com/golang-jwt/jwt v3.2.2+incompatible // indirect
 	github.com/golang/snappy v0.0.1 // indirect
 	github.com/golobby/cast v1.3.0 // indirect
 	github.com/golobby/dotenv v1.3.1 // indirect
