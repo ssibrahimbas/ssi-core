@@ -1,0 +1,2 @@
+greeting = "Merhaba {{.Name}}."
+test = "Test'ten merhaba."
