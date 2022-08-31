@@ -8,6 +8,10 @@ import (
 	"github.com/ssibrahimbas/ssi-core/pkg/result"
 )
 
+type CurrentUser struct {
+	ID string `json:"uuid"`
+}
+
 type CurrentUserConfig struct {
 	Jwt    *jwt.Jwt
 	I18n   *i18n.I18n
