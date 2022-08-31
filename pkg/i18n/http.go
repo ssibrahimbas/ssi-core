@@ -7,3 +7,10 @@ func (i *I18n) GetLanguagesInContext(c *fiber.Ctx) (string, string) {
 	a := c.Get("Accept-Language", i.fb)
 	return l, a
 }
+
+func (i *I18n) I18nMiddleware(c *fiber.Ctx) error {
+	l, a := i.GetLanguagesInContext(c)
+	c.Locals("lang", l)
+	c.Locals("accept-language", a)
+	return c.Next()
+}
