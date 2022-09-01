@@ -1,1 +1,2 @@
 auth_unauthorized = "Unauthorized"
+not_found = "Not Found"

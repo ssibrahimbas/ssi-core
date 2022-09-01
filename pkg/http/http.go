@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/recover"
+	"github.com/ssibrahimbas/ssi-core/pkg/i18n"
 )
 
 type Client struct {
@@ -16,18 +17,20 @@ type Config struct {
 }
 
 var defaultConfig = Config{
+	// not found message key
 	NFMsgKey: "not_found",
+	// default message key
 	DfMsgKey: "",
 }
 
-func New(config ...Config) *Client {
+func New(i18n *i18n.I18n, config ...Config) *Client {
 	var cfg = defaultConfig
 	if len(config) > 0 {
 		cfg = config[0]
 	}
 
 	app := fiber.New(fiber.Config{
-		ErrorHandler: errorHandler(&cfg),
+		ErrorHandler: errorHandler(&cfg, i18n),
 		JSONEncoder:  json.Marshal,
 		JSONDecoder:  json.Unmarshal,
 	})

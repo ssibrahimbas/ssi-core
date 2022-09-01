@@ -11,10 +11,10 @@ import (
 )
 
 func TestAuth_Module(t *testing.T) {
-	h := ssiHttp.New()
-	fa := h.App
 	i := i18n.New("en")
 	i.LoadLanguages("./locales_test", "en")
+	h := ssiHttp.New(i)
+	fa := h.App
 	j := jwt.New("secret")
 	fa.Use(i.I18nMiddleware)
 	token, err := j.Sign("test")

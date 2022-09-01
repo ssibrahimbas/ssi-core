@@ -3,6 +3,7 @@ package http
 import (
 	"context"
 	"github.com/gofiber/fiber/v2"
+	"github.com/ssibrahimbas/ssi-core/pkg/i18n"
 	"github.com/ssibrahimbas/ssi-core/pkg/result"
 	"github.com/stretchr/testify/assert"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -12,7 +13,9 @@ import (
 )
 
 func TestHttp_ErrorHandler(t *testing.T) {
-	h := New()
+	i := i18n.New("en")
+	i.LoadLanguages("./locales_test", "en")
+	h := New(i)
 	assert.NotEqual(t, h, nil)
 	ctx, cancel := context.WithTimeout(context.Background(), time.Duration(time.Millisecond*80))
 	defer cancel()
