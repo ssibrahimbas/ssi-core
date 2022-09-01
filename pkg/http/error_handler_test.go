@@ -5,6 +5,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/ssibrahimbas/ssi-core/pkg/result"
 	"github.com/stretchr/testify/assert"
+	"go.mongodb.org/mongo-driver/mongo"
 	"net/http"
 	"testing"
 	"time"
@@ -30,6 +31,11 @@ func TestHttp_ErrorHandler(t *testing.T) {
 
 	h.App.Get("/any-error", func(c *fiber.Ctx) error {
 		panic("Something went wrong")
+		return nil
+	})
+
+	h.App.Get("/no-doc-error", func(c *fiber.Ctx) error {
+		panic(mongo.ErrNoDocuments)
 		return nil
 	})
 
@@ -67,6 +73,14 @@ func TestHttp_ErrorHandler(t *testing.T) {
 		res, err := h.App.Test(req)
 		assert.NoError(t, err)
 		assert.Equal(t, fiber.StatusInternalServerError, res.StatusCode)
+	})
+
+	t.Run("errorHandler should return not found error if the error is mongo not found error", func(t *testing.T) {
+		req, err := http.NewRequest("GET", "/no-doc-error", nil)
+		assert.NoError(t, err)
+		res, err := h.App.Test(req)
+		assert.NoError(t, err)
+		assert.Equal(t, fiber.StatusNotFound, res.StatusCode)
 	})
 
 	ctx.Deadline()
