@@ -10,9 +10,24 @@ type Client struct {
 	App *fiber.App
 }
 
-func New() *Client {
+type Config struct {
+	NFMsgKey string
+	DfMsgKey string
+}
+
+var defaultConfig = Config{
+	NFMsgKey: "not_found",
+	DfMsgKey: "",
+}
+
+func New(config ...Config) *Client {
+	var cfg = defaultConfig
+	if len(config) > 0 {
+		cfg = config[0]
+	}
+
 	app := fiber.New(fiber.Config{
-		ErrorHandler: errorHandler,
+		ErrorHandler: errorHandler(&cfg),
 		JSONEncoder:  json.Marshal,
 		JSONDecoder:  json.Unmarshal,
 	})

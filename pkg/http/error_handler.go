@@ -6,20 +6,25 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
-func errorHandler(c *fiber.Ctx, err error) error {
-	code := fiber.StatusInternalServerError
-	if e, ok := err.(*result.Result); ok {
-		return c.Status(e.Code).JSON(e)
+func errorHandler(cfg *Config) func(c *fiber.Ctx, err error) error {
+	return func(c *fiber.Ctx, err error) error {
+		code := fiber.StatusInternalServerError
+		if e, ok := err.(*result.Result); ok {
+			return c.Status(e.Code).JSON(e)
+		}
+		if e, ok := err.(*result.DataResult); ok {
+			return c.Status(e.Code).JSON(e)
+		}
+		if err == mongo.ErrNoDocuments {
+			return c.Status(fiber.StatusNotFound).JSON(result.Error(cfg.NFMsgKey, fiber.StatusNotFound))
+		}
+		if e, ok := err.(*fiber.Error); ok {
+			code = e.Code
+		}
+		if cfg.DfMsgKey != "" {
+			return c.Status(code).JSON(result.Error(cfg.DfMsgKey, code))
+		}
+		err = c.Status(code).JSON(result.Error(err.Error(), code))
+		return err
 	}
-	if e, ok := err.(*result.DataResult); ok {
-		return c.Status(e.Code).JSON(e)
-	}
-	if err == mongo.ErrNoDocuments {
-		return c.Status(fiber.StatusNotFound).JSON(result.Error("not_found", fiber.StatusNotFound))
-	}
-	if e, ok := err.(*fiber.Error); ok {
-		code = e.Code
-	}
-	err = c.Status(code).JSON(result.Error(err.Error(), code))
-	return err
 }
