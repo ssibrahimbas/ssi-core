@@ -9,7 +9,8 @@ import (
 )
 
 type CurrentUser struct {
-	ID string `json:"uuid"`
+	ID    string `json:"uuid"`
+	Email string `json:"email"`
 }
 
 type CurrentUserConfig struct {
