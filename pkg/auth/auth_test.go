@@ -8,6 +8,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"net/http"
 	"testing"
+	"time"
 )
 
 func TestAuth_Module(t *testing.T) {
@@ -31,7 +32,11 @@ func TestAuth_Module(t *testing.T) {
 				return c.Status(fiber.StatusOK).SendString("Hello World")
 			})
 			req, err := http.NewRequest("GET", "/current-user/", nil)
-			req.Header.Add("Authorization", token)
+			req.AddCookie(&http.Cookie{
+				Name:    "token",
+				Value:   token,
+				Expires: time.Now().Add(time.Hour * 24),
+			})
 			assert.NoError(t, err)
 			resp, _ := fa.Test(req)
 			assert.Equal(t, fiber.StatusOK, resp.StatusCode)
@@ -41,7 +46,11 @@ func TestAuth_Module(t *testing.T) {
 				return c.Status(fiber.StatusOK).SendString("Hello World")
 			}).Use(i.I18nMiddleware)
 			req, err := http.NewRequest("GET", "/current-user/", nil)
-			req.Header.Add("Authorization", "invalid token")
+			req.AddCookie(&http.Cookie{
+				Name:    "token",
+				Value:   "invalid token",
+				Expires: time.Now().Add(time.Hour * 24),
+			})
 			assert.NoError(t, err)
 			resp, _ := fa.Test(req)
 			resp.Body.Close()
@@ -73,7 +82,11 @@ func TestAuth_Module(t *testing.T) {
 				return c.Status(fiber.StatusOK).SendString("Hello World")
 			})
 			req, err := http.NewRequest("GET", "/required-auth/", nil)
-			req.Header.Add("Authorization", token)
+			req.AddCookie(&http.Cookie{
+				Name:    "token",
+				Value:   token,
+				Expires: time.Now().Add(time.Hour * 24),
+			})
 			assert.NoError(t, err)
 			resp, _ := fa.Test(req)
 			assert.Equal(t, fiber.StatusOK, resp.StatusCode)

@@ -21,7 +21,7 @@ type CurrentUserConfig struct {
 
 func NewCurrentUser(cnf *CurrentUserConfig) fiber.Handler {
 	return func(c *fiber.Ctx) error {
-		t := c.Get("Authorization")
+		t := c.Cookies("token")
 		if t == "" {
 			return c.Next()
 		}
