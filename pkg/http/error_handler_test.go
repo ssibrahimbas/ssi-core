@@ -86,5 +86,21 @@ func TestHttp_ErrorHandler(t *testing.T) {
 		assert.Equal(t, fiber.StatusNotFound, res.StatusCode)
 	})
 
+	t.Run("errorHandler should return an default error if this is provided", func(t *testing.T) {
+		h := New(i, Config{
+			DfMsgKey: "default_msg",
+			NFMsgKey: "not_found",
+		})
+		h.App.Get("/default-msg-error", func(c *fiber.Ctx) error {
+			panic("Something went wrong")
+			return nil
+		})
+		req, err := http.NewRequest("GET", "/default-msg-error", nil)
+		assert.NoError(t, err)
+		res, err := h.App.Test(req)
+		assert.NoError(t, err)
+		assert.Equal(t, fiber.StatusInternalServerError, res.StatusCode)
+	})
+
 	ctx.Deadline()
 }
