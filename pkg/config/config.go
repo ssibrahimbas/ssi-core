@@ -1,25 +1,15 @@
 package config
 
 import (
-	"github.com/golobby/dotenv"
-	"github.com/golobby/dotenv/pkg/decoder"
-	"os"
+	"github.com/spf13/viper"
 )
 
-type Config struct {
-	d *decoder.Decoder
-}
-
-func New(fn string) (*Config, error) {
-	file, err := os.Open(fn)
-	if err != nil {
-		return nil, err
-	}
-	return &Config{
-		d: dotenv.NewDecoder(file),
-	}, nil
-}
-
-func (c *Config) Decode(o interface{}) error {
-	return c.d.Decode(o)
+func LoadConfig(p string, c interface{}) interface{} {
+	viper.AddConfigPath(p)
+	viper.SetConfigName("app")
+	viper.SetConfigType("env")
+	viper.AutomaticEnv()
+	viper.ReadInConfig()
+	viper.Unmarshal(&c)
+	return c
 }
