@@ -44,7 +44,7 @@ func TestMongoTransformId(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	id := mdb.transformId("5c9a2d9e7b4d1e0001f0d6d4")
+	id := mdb.TransformId("5c9a2d9e7b4d1e0001f0d6d4")
 	if !primitive.IsValidObjectID(id.Hex()) {
 		t.Fatal("id is not valid")
 	}
