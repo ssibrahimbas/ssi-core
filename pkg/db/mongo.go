@@ -2,6 +2,8 @@ package db
 
 import (
 	"context"
+
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
@@ -28,4 +30,12 @@ func NewMongo(uri string, dbName string) (*MongoDB, error) {
 
 func (m *MongoDB) GetCollection(n string) *mongo.Collection {
 	return m.db.Collection(n)
+}
+
+func (m *MongoDB) transformId(id string) primitive.ObjectID {
+	i, err := primitive.ObjectIDFromHex(id)
+	if err != nil {
+		panic(err)
+	}
+	return i
 }
