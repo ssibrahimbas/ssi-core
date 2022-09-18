@@ -36,3 +36,21 @@ func NewCurrentUser(cnf *CurrentUserConfig) fiber.Handler {
 		return c.Next()
 	}
 }
+
+func ParseCurrentUser(c *fiber.Ctx, i *i18n.I18n) *CurrentUser {
+	u := c.Locals("user").(map[string]interface{})
+	id, ok := u["uuid"].(string)
+	if !ok {
+		l, a := i.GetLanguagesInContext(c)
+		panic(i.Translate("invalid_user", l, a))
+	}
+	em, ok := u["email"].(string)
+	if !ok {
+		l, a := i.GetLanguagesInContext(c)
+		panic(i.Translate("invalid_user", l, a))
+	}
+	return &CurrentUser{
+		ID:    id,
+		Email: em,
+	}
+}
