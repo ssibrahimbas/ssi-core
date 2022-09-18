@@ -1,10 +1,11 @@
 package validator
 
 import (
+	"testing"
+
 	"github.com/ssibrahimbas/ssi-core/pkg/i18n"
 	"github.com/stretchr/testify/assert"
 	"go.mongodb.org/mongo-driver/bson/primitive"
-	"testing"
 )
 
 func TestValidator_Module(t *testing.T) {
@@ -253,6 +254,28 @@ func TestValidator_Module(t *testing.T) {
 				}
 				errors := v.ValidateStruct(test)
 				assert.Equal(t, 0, len(errors))
+			})
+		})
+		t.Run("validateSlug", func(t *testing.T) {
+			t.Run("should return no errors", func(t *testing.T) {
+				type Test struct {
+					Name string `json:"name" validate:"slug"`
+				}
+				test := Test{
+					Name: "test-test",
+				}
+				errors := v.ValidateStruct(test)
+				assert.Equal(t, 0, len(errors))
+			})
+			t.Run("should return errors", func(t *testing.T) {
+				type Test struct {
+					Name string `json:"name" validate:"slug"`
+				}
+				test := Test{
+					Name: "@test--",
+				}
+				errors := v.ValidateStruct(test)
+				assert.Equal(t, 1, len(errors))
 			})
 		})
 	})

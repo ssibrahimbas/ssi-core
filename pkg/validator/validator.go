@@ -1,10 +1,11 @@
 package validator
 
 import (
-	"github.com/go-playground/validator"
-	"github.com/ssibrahimbas/ssi-core/pkg/i18n"
 	"reflect"
 	"strings"
+
+	"github.com/go-playground/validator"
+	"github.com/ssibrahimbas/ssi-core/pkg/i18n"
 )
 
 type ErrorResponse struct {
@@ -45,6 +46,7 @@ func (v *Validator) ConnectCustom() {
 	_ = v.validate.RegisterValidation("password", validatePassword)
 	_ = v.validate.RegisterValidation("locale", validateLocale)
 	_ = v.validate.RegisterValidation("object_id", validateObjectId)
+	_ = v.validate.RegisterValidation("slug", validateSlug)
 }
 
 func (v *Validator) RegisterTagName() {

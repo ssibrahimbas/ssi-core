@@ -1,9 +1,10 @@
 package validator
 
 import (
+	"regexp"
+
 	"github.com/go-playground/validator"
 	"go.mongodb.org/mongo-driver/bson/primitive"
-	"regexp"
 )
 
 func validateUserName(fl validator.FieldLevel) bool {
@@ -13,6 +14,11 @@ func validateUserName(fl validator.FieldLevel) bool {
 
 func validatePassword(fl validator.FieldLevel) bool {
 	matched, _ := regexp.MatchString(passwordRegexp, fl.Field().String())
+	return matched
+}
+
+func validateSlug(fl validator.FieldLevel) bool {
+	matched, _ := regexp.MatchString(slugRegexp, fl.Field().String())
 	return matched
 }
 
