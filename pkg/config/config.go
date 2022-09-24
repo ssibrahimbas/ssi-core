@@ -22,6 +22,6 @@ func LoadConfig(p string, c interface{}) {
 func LoadEnv(p string, c interface{}) {
 	file, err := os.Open(p)
 	helper.CheckErr(err)
-	err = dotenv.NewDecoder(file).Decode(&c)
+	err = dotenv.NewDecoder(file).Decode(c)
 	helper.CheckErr(err)
 }
