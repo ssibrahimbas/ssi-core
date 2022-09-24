@@ -53,7 +53,7 @@ func main() {
     h.Post("/login", func(c *fiber.Ctx) error {
         return c.JSON(fiber.Map{"message": "Hello, World!"})
     })
-	log.Fatal(a.Http.Listen("8080"))
+	log.Fatal(a.Http.Listen(":8080"))
 }
 ```
 
