@@ -16,18 +16,18 @@ It is a repository that treats repetitive code as a basis in an already develope
 
 ### Packages
 
-- [auth]()
-- [cipher]()
-- [config]()
-- [db]()
-- [helper]()
-- [hook]()
-- [http]()
-- [i18n]()
-- [jwt]()
-- [nats]()
-- [result]()
-- [validator]()
+- [auth](https://github.com/ssibrahimbas/ssi-core/tree/main/pkg/auth)
+- [cipher](https://github.com/ssibrahimbas/ssi-core/tree/main/pkg/cipher)
+- [config](https://github.com/ssibrahimbas/ssi-core/tree/main/pkg/config)
+- [db](https://github.com/ssibrahimbas/ssi-core/tree/main/pkg/db)
+- [helper](https://github.com/ssibrahimbas/ssi-core/tree/main/pkg/helper)
+- [hook](https://github.com/ssibrahimbas/ssi-core/tree/main/pkg/hook)
+- [http](https://github.com/ssibrahimbas/ssi-core/tree/main/pkg/http)
+- [i18n](https://github.com/ssibrahimbas/ssi-core/tree/main/pkg/i18n)
+- [jwt](https://github.com/ssibrahimbas/ssi-core/tree/main/pkg/jwt)
+- [nats](https://github.com/ssibrahimbas/ssi-core/tree/main/pkg/nats)
+- [result](https://github.com/ssibrahimbas/ssi-core/tree/main/pkg/result)
+- [validator](https://github.com/ssibrahimbas/ssi-core/tree/main/pkg/validator)
 
 ### Installation
 
