@@ -1,6 +1,7 @@
 package config
 
 import (
+	"os"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -8,18 +9,10 @@ import (
 
 func TestLoadConfig(t *testing.T) {
 	type Config struct {
-		Label string `mapstructure:"LABEL"`
-	}
-	c := Config{}
-	LoadConfig(".", &c)
-	assert.Equal(t, "test", c.Label)
-}
-
-func TestLoadEnv(t *testing.T) {
-	type Config struct {
 		Label string `env:"LABEL"`
 	}
+	os.Setenv("LABEL", "test")
 	c := Config{}
-	LoadEnv("app.env", &c)
+	LoadConfig(&c)
 	assert.Equal(t, "test", c.Label)
 }
